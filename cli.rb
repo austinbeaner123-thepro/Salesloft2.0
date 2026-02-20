@@ -6,8 +6,28 @@ require_relative 'cli/refresh_token'
 require_relative 'cli/store'
 require_relative 'cli/token'
 require_relative 'cli/simple_api'
+require_relative 'cli/api_key_token'
 
-token = Token.new
+# Load .env file if present
+env_file = File.expand_path(File.join(File.dirname(__FILE__), ".env"))
+if File.exist?(env_file)
+  File.readlines(env_file).each do |line|
+    line = line.strip
+    next if line.empty? || line.start_with?('#')
+    key, value = line.split('=', 2)
+    ENV[key] = value if key && value
+  end
+end
+
+# Use API key if available, otherwise fall back to OAuth token
+if ENV['SALESLOFT_API_KEY']
+  token = ApiKeyToken.new(ENV['SALESLOFT_API_KEY'])
+  puts "Using API key authentication"
+else
+  token = Token.new
+  puts "Using OAuth token authentication"
+end
+
 api = SimpleApi.new(token: token)
 
 # Show who the authorized user is

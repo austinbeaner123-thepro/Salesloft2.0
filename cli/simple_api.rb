@@ -3,7 +3,7 @@ class SimpleApi
   include HTTParty
   base_uri BASE_URI
 
-  def initialize(base: '/public_api/v1', token:)
+  def initialize(base: '/v2', token:)
     @base = base
     @token = token
   end

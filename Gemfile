@@ -5,3 +5,4 @@ gem "omniauth"
 gem "omniauth-salesloft"
 
 gem "httparty"
+gem "dotenv"
