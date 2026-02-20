@@ -2,6 +2,7 @@
   "name": "salesloft-mcp-server",
   "version": "1.0.0",
   "description": "MCP server for the Salesloft API",
+  "type": "module",
   "main": "dist/index.js",
   "bin": {
     "salesloft-mcp-server": "dist/index.js"
